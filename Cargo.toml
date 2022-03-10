@@ -1,6 +1,6 @@
 [package]
 name = "const-trig"
-version = "0.0.0"
+version = "0.0.1"
 edition = "2021"
 exclude = ["src/main.rs", ".idea", ".gitignore"]
 license = "GPL-3.0"

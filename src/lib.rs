@@ -69,8 +69,6 @@
 
 #![no_std]
 
-extern crate alloc;
-
 mod pow;
 mod sine_cosine;
 mod rads_degs;

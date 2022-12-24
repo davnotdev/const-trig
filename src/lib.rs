@@ -69,15 +69,13 @@
 
 #![no_std]
 
-extern crate alloc;
-
 mod pow;
 mod sine_cosine;
 mod rads_degs;
 mod roots;
 mod log;
 
-pub use pow::pow;
+pub use pow::{pow, powf, exp};
 pub use sine_cosine::{sin, cos};
 pub use rads_degs::{Degrees, ToDegrees, Radians, ToRadians};
 pub use roots::{sqrt, root};

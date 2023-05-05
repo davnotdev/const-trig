@@ -37,6 +37,7 @@ macro_rules! declare {
             }
         }
 
+        #[const_trait]
         pub trait $trait {
             type Output: Copy;
 

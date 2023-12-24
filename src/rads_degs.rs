@@ -1,38 +1,37 @@
 use core::f32::consts::PI;
-use core::ops::*;
 
 macro_rules! declare {
     (@cross $trait:ident $little:ident $is_not:ident $big:ident $op:ident $expr:expr) => {
         auto trait $is_not {}
 
-        impl <T> !$is_not for $op <T> {}
+        impl !$is_not for $op {}
 
-        impl <T: Copy + ~const From <f32> + ~const Mul <Output = T>> const $trait for $big <T> {
-            type Output = T;
+        impl const $trait for $big {
+            type Output = f32;
 
             ///
             /// Convert radians to degrees.
             /// See <a href="https://en.wikipedia.org/wiki/Radian">Radian</a> and <a href="https://en.wikipedia.org/wiki/Degree_(angle)">Degree</a>.
             ///
-            fn $little(self) -> $op <Self::Output> {
+            fn $little(self) -> $op {
                 const F: f32 = $expr;
-                $op(self.0 * T::from(F))
+                $op(self.0 * F)
             }
         }
     };
 
     (@base $big:ident $little:ident $trait:ident $is_not:ident) => {
         #[derive(Copy, Clone)]
-        pub struct $big <T: Copy> (T);
+        pub struct $big(f32);
 
-        impl <T: Copy> const From <T> for $big <T> {
-            fn from(x: T) -> Self {
+        impl const From<f32> for $big {
+            fn from(x: f32) -> Self {
                 Self(x)
             }
         }
 
-        impl <T: Copy> $big <T> {
-            pub const fn get(self) -> T {
+        impl $big {
+            pub const fn get(self) -> f32 {
                 self.0
             }
         }
@@ -41,13 +40,13 @@ macro_rules! declare {
         pub trait $trait {
             type Output: Copy;
 
-            fn $little(self) -> $big <Self::Output>;
+            fn $little(self) -> $big;
         }
 
-        impl <T: Copy + $is_not> const $trait for T {
+        impl const $trait for f32 {
             type Output = Self;
 
-            fn $little(self) -> $big <Self::Output> {
+            fn $little(self) -> $big {
                 $big::from(self)
             }
         }

@@ -1,6 +1,4 @@
 use crate::DEFAULT_PRECISION;
-use core::ops::*;
-
 ///
 /// Find <a href="https://en.wikipedia.org/wiki/Nth_root">`n`th root</a> of `x`,
 /// i.e.
@@ -16,26 +14,17 @@ use core::ops::*;
 /// You can use custom precision, by passing
 /// `Some(your_precision)` instead of `None` as `precision`.
 ///
-pub const fn root <T> (x: T, n: usize, precision: Option <usize>) -> T
-where T:
-    ~const From <f32> +
-    ~const Mul <Output = T> +
-    ~const Div <Output = T> +
-    ~const MulAssign +
-    ~const AddAssign +
-    ~const Sub <Output = T> +
-    Copy
-{
+pub const fn root(x: f32, n: usize, precision: Option<usize>) -> f32 {
     let precision = match precision {
         None => DEFAULT_PRECISION,
-        Some(x) => x
+        Some(x) => x,
     };
 
-    let mut a = x * T::from(0.5);
+    let mut a = x * 0.5;
     let mut dx;
     let mut i = 0;
     while i < precision {
-        dx = (x / crate::pow(a, n - 1) - a) / T::from(n as f32);
+        dx = (x / crate::pow(a, n - 1) - a) / n as f32;
         a += dx;
         i += 1
     }
@@ -48,24 +37,17 @@ where T:
 /// You can use custom precision, by passing
 /// `Some(your_precision)` instead of `None` as `precision`.
 ///
-pub const fn sqrt <T> (x: T, precision: Option <usize>) -> T
-where T:
-    ~const From <f32> +
-    ~const Add <Output = T> +
-    ~const Mul <Output = T> +
-    ~const Div <Output = T> +
-    Copy
-{
+pub const fn sqrt(x: f32, precision: Option<usize>) -> f32 {
     let precision = match precision {
         None => DEFAULT_PRECISION,
-        Some(x) => x
+        Some(x) => x,
     };
 
     let mut result = x;
 
     let mut i = 0;
     while i < precision {
-        result = T::from(0.5) * (result + x / result);
+        result = 0.5 * (result + x / result);
         i += 1
     }
     result

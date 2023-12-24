@@ -63,22 +63,21 @@
 #![feature(const_mut_refs)]
 #![feature(auto_traits)]
 #![feature(negative_impls)]
-
+#![feature(const_fn_floating_point_arithmetic)]
 #![allow(non_snake_case)]
-
 #![no_std]
 
+mod log;
 mod pow;
-mod sine_cosine;
 mod rads_degs;
 mod roots;
-mod log;
+mod sine_cosine;
 
-pub use pow::{pow, powf, exp};
-pub use sine_cosine::{sin, cos};
-pub use rads_degs::{Degrees, ToDegrees, Radians, ToRadians};
-pub use roots::{sqrt, root};
-pub use log::{ln, lg, lb, log};
+pub use log::{lb, lg, ln, log};
+pub use pow::{exp, pow, powf};
+pub use rads_degs::{Degrees, Radians, ToDegrees, ToRadians};
+pub use roots::{root, sqrt};
+pub use sine_cosine::{cos, sin};
 
 /// See <a href="https://en.wikipedia.org/wiki/Summation">Summation</a>.
 #[macro_export]
@@ -88,7 +87,7 @@ macro_rules! Σ {
     };
 
     ($start:expr, $finish:expr, $step:literal => { $( $tt:tt )* }) => {{
-        let mut sum = T::from(0.0);
+        let mut sum = 0.0;
         let mut i = $start;
         while i < $finish {
             sum += {

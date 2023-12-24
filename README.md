@@ -1,5 +1,14 @@
 # Const-trig
 
+## ⚠️ Word of Warning ⚠️
+
+WARNING, this is an extremely sketchy, half assed fork of [`const-trig`](https://github.com/OrbitalStation/const-trig)
+proving `const` functions for f32's only, fixing errors but also introducing a new slew of bugs thanks to the instability of `#![feature(const_fn_floating_point_arithmetic)]`.
+
+Please proceed with caution and stay vigilant of strange behavior!
+
+## Introduction
+
 This crate exists to provide `const` versions of functions,
 such as `cos`, `sin`, etc.
 
